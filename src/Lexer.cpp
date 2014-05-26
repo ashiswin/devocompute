@@ -83,6 +83,36 @@ Token* Lexer::getToken() {
 		case '_':
 			// Identifier such as variable, type or function detected
 			return readIdentifier();
+		case '<':
+			if(reader->peek(1) == '=') {
+				reader->read();
+				reader->read();
+				return new Token(LESSEQUAL, "<=", position);
+			}
+			else {
+				reader->read();
+				return new Token(LESS, "<", position);
+			}
+		case '>':
+			if(reader->peek(1) == '=') {
+				reader->read();
+				reader->read();
+				return new Token(GREATEREQUAL, ">=", position);
+			}
+			else {
+				reader->read();
+				return new Token(GREATER, ">", position);
+			}
+		case '=':
+			if(reader->peek(1) == '=') {
+				reader->read();
+				reader->read();
+				return new Token(EQUAL, "==", position);
+			}
+			else {
+				reader->read();
+				return new Token(EQUALS, "=", position);
+			}
 		default:
 			// If it is a character, read identifier
 			if((c > 64 && c < 91) || (c > 96 && c < 123)) return readIdentifier();
