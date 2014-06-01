@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 	
-	Lexer *lexer = new Lexer(argv[1], "dictionary.txt");
+	Lexer *lexer = new Lexer(argv[1], "dictionary.txt", "identifiers.txt");
 	while(1) {
 		Token* token = lexer->getToken();
 		

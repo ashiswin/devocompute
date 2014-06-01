@@ -1,3 +1,4 @@
+#include "BinarySearchTree.h"
 #include "Lexer.h"
 #include "PeekReader.h"
 #include "Token.h"
@@ -5,7 +6,7 @@
 #include <string.h>
 
 // Constructor for the lexer
-Lexer::Lexer(char* filename, const char* dictionary) {
+Lexer::Lexer(char* filename, const char* dictionary, const char* identifiers) {
 	// Dictionary file contains relevant TokenType for each character. Refer to tools-src/dictionary.cpp for more details
 	FILE* dictionaryFile = fopen(dictionary, "r");
 	if(dictionaryFile == NULL) {
@@ -23,6 +24,26 @@ Lexer::Lexer(char* filename, const char* dictionary) {
 	
 	// Close dictionary file
 	fclose(dictionaryFile);
+	
+	// Identifiers contains a list of all identifiers and their relevant Token types
+	FILE* identifiersFile = fopen(identifiers, "r");
+	if(identifiersFile == NULL) {
+		printf("[Lexer Error] Unable to load lexer identifiers\n");
+		return;
+	}
+	
+	this->identifiers = new BinarySearchTree();
+	
+	while(!feof(identifiersFile)) {
+		if(feof(identifiersFile)) break;
+		
+		Keyword* keyword = (Keyword*) malloc(sizeof(Keyword));
+		
+		fscanf(identifiersFile, "%s %d", keyword->text, &keyword->type);
+		this->identifiers->insert(this->identifiers->root, keyword);
+	}
+	
+	fclose(identifiersFile);
 	
 	// Open script
 	FILE* scriptFile = fopen(filename, "r");
@@ -260,17 +281,16 @@ Token* Lexer::readIdentifier() {
 		// Update SourcePosition
 		position->columnNo++;
 	}
-	// Check for matches with reserved words
-	// TODO: Create a binary search tree with data from dictionary to match against larger set of reserved words quickly
-	if(strcmp("for", str) == 0) {
-		return new Token(FOR, str, pos);
-	}
-	else if(strcmp("while", str) == 0) {
-		return new Token(WHILE, str, pos);
-	}
 	
-	// If unmatched, return as a VARIABLE Token
-	return new Token(VARIABLE, str, pos);
+	// Check for matches with reserved words
+	Keyword* keyword = identifiers->find(identifiers->root, str);
+	if(keyword == NULL) {
+		return new Token(VARIABLE, str, pos);
+	}
+	else {
+		return new Token(keyword->type, keyword->text, pos);
+	}
+	delete identifiers;
 }
 
 // Read number

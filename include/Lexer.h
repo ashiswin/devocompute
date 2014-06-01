@@ -5,13 +5,16 @@
 
 class Token;
 class PeekReader;
+class BinarySearchTree;
+
 class Lexer {
 	private:
 		PeekReader *reader;
 		SourcePosition* position;
 		int* dictionary;
+		BinarySearchTree* identifiers;
 	public:
-		Lexer(char* filename, const char* dictionary);
+		Lexer(char* filename, const char* dictionary, const char* identifiers);
 		~Lexer();
 		Token* getToken();
 		Token* readBlockComment();
