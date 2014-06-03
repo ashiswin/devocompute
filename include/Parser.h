@@ -11,4 +11,5 @@ class Parser {
 		Parser(Lexer* lexer);
 		~Parser();
 };
+
 #endif
