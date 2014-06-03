@@ -1,27 +1,7 @@
-test;
-i = 1 + 2 - j;
+in vec4 rgba;
+in vec4 factor;
+out vec4 output;
 
-myfunc(i, j) = {
-	brain = what;
+main() = {
+	output = rgba * factor;
 }
-
-int array[3];
-
-/*ok can
-block comment ka?
-*/
-
-//line comment lel
-//line comment 2
-
-"string here lol"
-
-for(int i = 0; i < 3; i++) {
-	print("Hello"); // print hello
-}
-
-j < 3
-j <= 3
-j > 3
-j >= 3
-j == 3

@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Destructor, recurses through tree and deletes all nodes
 BinarySearchTree::~BinarySearchTree() {
 	destroy(root);
 }
 
+// Insert new Keyword node into tree
 void BinarySearchTree::insert(Keyword* &root, Keyword* keyword) {
 	if(root == NULL) {
 		root = keyword;
@@ -21,6 +23,7 @@ void BinarySearchTree::insert(Keyword* &root, Keyword* keyword) {
 	}
 }
 
+// Search recursively for a Keyword node based on the text
 Keyword* BinarySearchTree::find(Keyword* root, char* text) {
 	if(root == NULL) {
 		return NULL;
@@ -39,6 +42,7 @@ Keyword* BinarySearchTree::find(Keyword* root, char* text) {
 	}
 }
 
+// Recursively delete each node
 void BinarySearchTree::destroy(Keyword* root) {
 	if(root == NULL) return;
 	

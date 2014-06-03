@@ -32,8 +32,10 @@ Lexer::Lexer(char* filename, const char* dictionary, const char* identifiers) {
 		return;
 	}
 	
+	// Initialize a new binary search tree
 	this->identifiers = new BinarySearchTree();
 	
+	// Read in identifiers and associated types
 	while(!feof(identifiersFile)) {
 		if(feof(identifiersFile)) break;
 		
@@ -43,6 +45,7 @@ Lexer::Lexer(char* filename, const char* dictionary, const char* identifiers) {
 		this->identifiers->insert(this->identifiers->root, keyword);
 	}
 	
+	// Close identifier file
 	fclose(identifiersFile);
 	
 	// Open script
