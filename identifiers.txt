@@ -7,3 +7,7 @@ vec2 30
 vec16 30
 while 29
 for 28
+in 36
+out 37
+uniform 38
+return 39

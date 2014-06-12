@@ -36,7 +36,9 @@ void TokenBuffer::fillBuffer() {
 			delete lexer;
 			break;
 		}
-		
+		if(token->type == WHITE) {
+			continue;
+		}
 		if(!buffer->push(token)) {
 			printf("Unable to push new Token\n");
 		}
@@ -52,4 +54,8 @@ Token* TokenBuffer::read() {
 	fillBuffer();
 	
 	return token;
+}
+
+int TokenBuffer::getSize() {
+	return buffer->getSize();
 }

@@ -1,4 +1,5 @@
 #include "Lexer.h"
+#include "Parser.h"
 #include "Token.h"
 #include <stdio.h>
 
@@ -9,18 +10,10 @@ int main(int argc, char* argv[]) {
 	}
 	
 	Lexer *lexer = new Lexer(argv[1], "dictionary.txt", "identifiers.txt");
-	while(1) {
-		Token* token = lexer->getToken();
-		
-		if(token->type == FEOF) {
-			delete token;
-			break;
-		}
-		if(token->type == WHITE) {
-			continue;
-		}
-		printf("%s\n", token->toString());
-	}
+	Parser *parser = new Parser(lexer, "bytecode.dev", "variabletypes.txt");
+	
+	parser->start();
+	parser->write();
 	
 	return 0;
 }

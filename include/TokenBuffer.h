@@ -23,6 +23,7 @@ class TokenBuffer {
 		Token* peek(int i);
 		void fillBuffer();
 		Token* read();
+		int getSize();
 };
 
 #endif

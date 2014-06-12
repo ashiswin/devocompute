@@ -9,10 +9,12 @@ VariableStoreTree::~VariableStoreTree() {
 }
 
 // Insert new Variable node into tree
-void VariableStoreTree::insert(Variable* &root, Variable* variable) {
+int VariableStoreTree::insert(Variable* &root, Variable* variable) {
 	if(root == NULL) {
+		variable->index = index;
 		root = variable;
-		return;
+		index++;
+		return (index - 1);
 	}
 	
 	if(strcmp(root->name, variable->name) < 0) {
@@ -24,21 +26,21 @@ void VariableStoreTree::insert(Variable* &root, Variable* variable) {
 }
 
 // Search recursively for a Variable node based on the text
-Variable* VariableStoreTree::find(Variable* root, char* name) {
+Variable* VariableStoreTree::find(Variable* root, char* name, int* function) {
 	if(root == NULL) {
 		return NULL;
 	}
 	
 	int compare = strcmp(root->name, name);
 	
-	if(compare == 0) {
+	if(compare == 0 && root->function == *function) {
 		return root;
 	}
 	else if(compare < 0) {
-		return find(root->left, name);
+		return find(root->left, name, function);
 	}
 	else {
-		return find(root->right, name);
+		return find(root->right, name, function);
 	}
 }
 
