@@ -1,10 +1,19 @@
 #include "VariableStoreTree.h"
+#include "VariableTypes.h"
+#include "Queue.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
+
+VariableStoreTree::VariableStoreTree() {
+	types = new Queue<char>(INT_MAX);
+	index = 0;
+}
 
 // Destructor, recurses through tree and deletes all nodes
 VariableStoreTree::~VariableStoreTree() {
+	delete types;
 	destroy(root);
 }
 
@@ -13,6 +22,46 @@ int VariableStoreTree::insert(Variable* &root, Variable* variable) {
 	if(root == NULL) {
 		variable->index = index;
 		root = variable;
+		
+		switch(variable->type) {
+			case INT: {
+				types->push('i');
+				break;
+			}
+			case FLOAT: {
+				types->push('f');
+				break;
+			}
+			case DOUBLE: {
+				types->push('d');
+				break;
+			}
+			case SHORT: {
+				types->push('s');
+				break;
+			}
+			case BYTE: {
+				types->push('b');
+				break;
+			}
+			case VEC2: {
+				types->push('v');
+				break;
+			}
+			case VEC4: {
+				types->push('w');
+				break;
+			}
+			case VEC8: {
+				types->push('x');
+				break;
+			}
+			case VEC16: {
+				types->push('y');
+				break;
+			}
+		}
+			
 		index++;
 		return (index - 1);
 	}
@@ -42,6 +91,11 @@ Variable* VariableStoreTree::find(Variable* root, char* name, int* function) {
 	else {
 		return find(root->right, name, function);
 	}
+}
+
+// Get the types of all the variables stored
+Queue<char>* VariableStoreTree::getTypes() {
+	return types;
 }
 
 // Recursively delete each node

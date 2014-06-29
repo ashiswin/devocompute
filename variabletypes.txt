@@ -1,6 +1,8 @@
 int
 float
+double
 short
+byte
 vec2
 vec4
 vec8

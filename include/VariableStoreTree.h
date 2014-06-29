@@ -3,6 +3,8 @@
 
 #include "VariableTypes.h"
 
+template <class T> class Queue;
+
 struct Variable {
 	char* name;
 	VariableType type;
@@ -17,12 +19,16 @@ struct Variable {
 
 class VariableStoreTree {
 	public:
+		VariableStoreTree();
 		~VariableStoreTree();
 		int insert(Variable* &root, Variable* variable);
 		Variable* find(Variable* root, char* name, int* function);
+		Queue<char>* getTypes();
 		void destroy(Variable* root);
 		
 		Variable* root;
-		int index = 0;
+		int index;
+	private:
+		Queue<char>* types;
 };
 #endif

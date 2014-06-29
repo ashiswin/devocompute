@@ -7,7 +7,7 @@
 #define VARIABLETYPES_H
 
 enum VariableType {
-	INT, FLOAT, SHORT,
+	INT, FLOAT, DOUBLE, SHORT, BYTE,
 	VEC2, VEC4, VEC8, VEC16
 };
 

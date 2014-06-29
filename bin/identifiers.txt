@@ -1,7 +1,15 @@
 int 30
 float 30
 short 30
+double 30
+byte 30
 vec4 30
 vec8 30
 vec2 30
 vec16 30
+while 29
+for 28
+in 36
+out 37
+uniform 38
+return 39

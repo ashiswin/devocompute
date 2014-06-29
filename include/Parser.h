@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 class BinarySearchTree;
+class Block;
+class FunctionStoreTree;
 class Lexer;
 class Token;
 class TokenBuffer;
@@ -16,6 +18,9 @@ class Parser {
 		TokenBuffer* buffer;
 		VariableStoreTree* variables;
 		Queue<int> *in, *out, *uniform;
+		Queue<Block*> *blockList;
+		FunctionStoreTree *functions;
+		Node *astRoot;
 		FILE *bytecode;
 		int currentFunction;
 	public:
@@ -23,6 +28,8 @@ class Parser {
 		~Parser();
 		void start();
 		Token* match(TokenType type);
+		Queue<int>* getArguments();
+		void processBlock(Block* block);
 		void write();
 };
 

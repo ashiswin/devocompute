@@ -1,7 +1,9 @@
 in vec4 rgba;
 in vec4 factor;
 out vec4 output;
+uniform double modulation;
+int size;
 
-main() = {
-	output = rgba * factor;
+int main() {
+	output = rgba * factor * modulation;
 }

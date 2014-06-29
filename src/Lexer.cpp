@@ -276,8 +276,8 @@ Token* Lexer::readIdentifier() {
 		// If next character is not a valid character in an identifier, break
 		if(!((p >= 'a' && p <= 'z') || (p >= 'A' && p <= 'Z') || (p >= '0' && p <= '9') || p == '_')) {
 			// Get contents of stringstream as a character array
-			str = (char*) malloc(ss.str().length());
-			strncpy(str, ss.str().c_str(), ss.str().length());
+			str = (char*) malloc(ss.str().length() + 1);
+			strncpy(str, ss.str().c_str(), ss.str().length() + 1);
 			break;
 		}
 		
